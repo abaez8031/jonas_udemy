@@ -15,4 +15,3 @@ console.log(markBMI2)
 console.log(johnBMI2)
 console.log(markHigherBMI1)
 console.log(markHigherBMI2)
-
