@@ -103,7 +103,17 @@ const createUsernames = function(accounts) {
   })
 }
 
+createUsernames(accounts)
 // displayMovements(account1.movements)
+
+let currentAccount;
+btnLogin.addEventListener("click", function(e) {
+  e.preventDefault();
+  console.log("LOGIN")
+
+  currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
+  console.log(currentAccount)
+})
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
