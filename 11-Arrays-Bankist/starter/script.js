@@ -82,8 +82,6 @@ const calcDisplayBalance = function(movements) {
   labelBalance.textContent = `${balance} EUR`
 }
 
-calcDisplayBalance(account1.movements)
-
 const calcDisplaySummary = function(movements) {
   const incomes = movements.filter(mov => mov > 0).reduce((acc,mov) => acc + mov, 0)
   labelSumIn.textContent = `${incomes}€`
@@ -94,8 +92,6 @@ const calcDisplaySummary = function(movements) {
   const interest = movements.filter(mov => mov > 0).map(deposit => (deposit * 1.2) / 100).filter(int => int >= 1).reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest}€`
 }
-
-calcDisplaySummary(account1.movements)
 
 const createUsernames = function(accounts) {
   accounts.forEach(account => {
@@ -109,10 +105,17 @@ createUsernames(accounts)
 let currentAccount;
 btnLogin.addEventListener("click", function(e) {
   e.preventDefault();
-  console.log("LOGIN")
 
   currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
-  console.log(currentAccount)
+  if(currentAccount?.pin === Number(inputLoginPin.value)) {
+    inputLoginUsername.value = inputLoginPin.value = "";
+    inputLoginPin.blur();
+    labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(" ")[0]}`
+    containerApp.style.opacity = 100;
+    displayMovements(currentAccount.movements);
+    calcDisplayBalance(currentAccount.movements);
+    calcDisplaySummary(currentAccount.movements);
+  }
 })
 
 /////////////////////////////////////////////////
